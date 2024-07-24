@@ -1,10 +1,12 @@
-<script>
+<script lang="ts">
   import "tailwindcss/tailwind.css";
+
+  import logoWhite from "$lib/assets/zap-logo-white.png";
 </script>
 
-<div class="navbar bg-base-100">
+<div class="navbar bg-base-100 border-b border-1">
   <div class="flex-none">
-    <button class="btn btn square btn-ghost">
+    <button class="btn square btn-ghost">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -21,6 +23,11 @@
         </path>
       </svg>
     </button>
+  </div>
+  <div class="flex-1">
+    <a href="./" class="btn btn-ghost text-xl">
+      <img src={logoWhite} alt="Zap logo" width="52" height="46" />ZAP</a
+    >
   </div>
 </div>
 <slot />

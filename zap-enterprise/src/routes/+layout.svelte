@@ -1,6 +1,7 @@
 <script lang="ts">
     import '../app.css';
-    let isExpanded = false;
+    const { children } = $props();
+    let isExpanded = $state(false);
   
     function toggleSidebar() {
       isExpanded = !isExpanded;
@@ -41,7 +42,7 @@
         </div>
       </aside>
       <main class="sm:w-4/5 p-4 pt-12 px-8">
-        <!-- Main content here -->
+        {@render children()}
       </main>
     </div>
   </div>

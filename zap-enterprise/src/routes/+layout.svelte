@@ -1,7 +1,7 @@
 <script lang="ts">
     import '../app.css';
-    const { children } = $props();
-    let isExpanded = $state(false);
+    const { children } = $props(); // svelte 5 replacement for <slot />
+    let isExpanded = $state(false); // svelte 5 runes (svelte 4 version: `$: isExpanded = false;` )
   
     function toggleSidebar() {
       isExpanded = !isExpanded;

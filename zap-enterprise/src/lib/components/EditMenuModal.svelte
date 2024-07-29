@@ -4,6 +4,34 @@
     let itemNameInput = ""
     let itemPriceInput = ""
     let itemDescriptionInput = ""
+
+    let showAlert = false;
+    let alertMessage = "";
+
+    function handleSubmit() {
+    if (validateInputs()) {
+      console.log("Form is valid. saving...");
+      
+      // close the modal and reset inputs after saving
+      isModalOpen = false;
+      setTimeout(() => {
+        categoryInput = "";
+        itemNameInput = "";
+        itemPriceInput = "";
+        itemDescriptionInput = "";
+      }, 200);
+    } else {
+      console.log("Please fill in all required fields.");
+    }
+  }
+
+  // Function to validate input fields
+  function validateInputs() {
+    return categoryInput.trim() !== "" &&
+           itemNameInput.trim() !== "" &&
+           itemPriceInput.trim() !== "" &&
+           itemDescriptionInput.trim() !== "";
+  }
 </script>
 
 <dialog class="modal" class:modal-open={isModalOpen}>
@@ -38,7 +66,7 @@
         </div>
         <div class="flex justify-center mt-4">
             <!-- <button class="btn btn-success" on:click={handleSubmit}>Save</button> -->
-            <button class="btn btn-outline btn-primary rounded-full hover:text-white w-32">Search</button>
+            <button class="btn btn-outline btn-primary rounded-full hover:text-white w-32 on:click={handleSubmit}">Save</button>
         </div>
     </div>
 </dialog>

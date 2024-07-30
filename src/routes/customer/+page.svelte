@@ -1,5 +1,4 @@
 <script lang="ts">
-  // import logoWhite from "$lib/assets/zap-logo-white.png";
   import restaurantImg from "$lib/assets/restaurant.jpeg";
 </script>
 

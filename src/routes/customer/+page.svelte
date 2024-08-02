@@ -18,6 +18,8 @@
         Welcome to Zap! Please click around to learn more!
       </p>
     </div>
-    <a href="./test" class="btn btn-secondary">Go To Test Page</a>
+    <a href="./customer/restaurant" class="btn btn-secondary"
+      >Go To Restaurant</a
+    >
   </div>
 </div>

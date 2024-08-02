@@ -3,7 +3,7 @@
   //export let isModalOpen: boolean;
   let categoryInput = $state("");
   let itemNameInput = $state("");
-  let itemPriceInput = $state("");
+  let itemPriceInput: number | null = $state(null);
   let itemDescriptionInput = $state("");
 
   //svelte 4:
@@ -21,14 +21,12 @@
   async function handleSubmit() {
     if (validateInputs()) {
       console.log("Form is valid. Saving...");
-      const { error } = await supabase
-        .from("menuitems")
-        .insert({
-          category: categoryInput,
-          name: itemNameInput,
-          price: itemPriceInput,
-          description: itemDescriptionInput,
-        }); // spread operator fills in description and ids
+      const { error } = await supabase.from("menuitems").insert({
+        category: categoryInput,
+        name: itemNameInput,
+        price: itemPriceInput,
+        description: itemDescriptionInput,
+      }); // spread operator fills in description and ids
 
       // Close the modal and reset inputs after saving
       isModalOpen = false;
@@ -44,7 +42,7 @@
     return (
       categoryInput !== "" &&
       itemNameInput !== "" &&
-      itemPriceInput !== "" &&
+      itemPriceInput !== null &&
       itemDescriptionInput !== ""
     );
   }
@@ -53,12 +51,11 @@
   function resetInputs() {
     categoryInput = "";
     itemNameInput = "";
-    itemPriceInput = "";
+    itemPriceInput = null;
     itemDescriptionInput = "";
     showAlert = false;
     alertMessage = "";
   }
-
 </script>
 
 <dialog class="modal" class:modal-open={isModalOpen}>

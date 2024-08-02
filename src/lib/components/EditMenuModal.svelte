@@ -64,7 +64,7 @@
 
 <dialog class="modal" class:modal-open={isModalOpen}>
   <div class="modal-box max-w-xl">
-      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" on:click={() => {
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onclick={() => {
           isModalOpen = false; 
           setTimeout(() => {
               resetInputs();
@@ -107,7 +107,7 @@
       {/if}
       <div class="flex justify-center mt-4">
           <!-- <button class="btn btn-success" on:click={handleSubmit}>Save</button> -->
-          <button class="btn btn-outline btn-primary rounded-full hover:text-white w-32" on:click={handleSubmit}>Save</button>
+          <button class="btn btn-outline btn-primary rounded-full hover:text-white w-32" onclick={handleSubmit}>Save</button>
       </div>
   </div>
 </dialog>

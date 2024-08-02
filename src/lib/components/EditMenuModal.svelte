@@ -1,27 +1,33 @@
 <script lang="ts">
-  export let isModalOpen: boolean;
-  let categoryInput = "";
-  let itemNameInput = "";
-  let itemPriceInput = "";
-  let itemDescriptionInput = "";
+    import { supabase } from '$lib/supabaseClient';  
+    //export let isModalOpen: boolean;
+  let categoryInput = $state("");
+  let itemNameInput = $state("");
+  let itemPriceInput = $state("");
+  let itemDescriptionInput = $state("");
 
-  export let data;
+  //svelte 4:
+  //export let data;
 
   // runes mode requires 
-  //let { data: data } = $props();
-  // const { supabase, session } = propsData;
+  let { isModalOpen = $bindable(false), } = $props();
+
   
   // let { supabase, session } = data; // destructure these from data object
   // $: ({ supabase, session } = data);
 
-  let showAlert = false;
-  let alertMessage = "";
+  let showAlert = $state(false);
+  let alertMessage = $state("");
 
-  function handleSubmit() {
+  async function handleSubmit() {
       if (validateInputs()) {
           console.log("Form is valid. Saving...");
-
-          // Close the modal and reset inputs after saving
+          const { data, error} = await supabase
+            .from("menuItems")
+            .insert({ category_name: categoryInput, item_name: itemNameInput, price: itemPriceInput, description: itemDescriptionInput }) // spread operator fills in description and ids
+          
+        console.log(data);
+            // Close the modal and reset inputs after saving
           isModalOpen = false;
           resetInputs();
       } else {
@@ -32,10 +38,10 @@
 
   // Function to validate input fields
   function validateInputs() {
-      return categoryInput.trim() !== "" &&
-             itemNameInput.trim() !== "" &&
-             itemPriceInput.trim() !== "" &&
-             itemDescriptionInput.trim() !== "";
+      return categoryInput !== "" &&
+             itemNameInput !== "" &&
+             itemPriceInput !== "" &&
+             itemDescriptionInput !== "";
   }
 
   // Function to reset input fields

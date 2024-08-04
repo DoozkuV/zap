@@ -1,13 +1,12 @@
 <script lang="ts">
   import { supabase } from "$lib/supabaseClient";
-  //export let isModalOpen: boolean;
+  
   let categoryInput = $state("");
   let itemNameInput = $state("");
   let itemPriceInput: number | null = $state(null);
   let itemDescriptionInput = $state("");
+  let file: File | null = null;
 
-  //svelte 4:
-  //export let data;
 
   // runes mode requires
   let { isModalOpen = $bindable(false) } = $props();
@@ -56,10 +55,11 @@
     showAlert = false;
     alertMessage = "";
   }
+
 </script>
 
 <dialog class="modal" class:modal-open={isModalOpen}>
-  <div class="modal-box max-w-xl">
+  <div class="modal-box max-w-xl h-full">
     <button
       class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
       onclick={() => {
@@ -92,6 +92,11 @@
           bind:value={itemNameInput}
         />
       </label>
+      <h1 class="text-left p-1 text-md">Item Picture</h1>
+      <input
+            type="file"
+            accept="image/jpg, image/jpeg, image/png"
+            class="file-input file-input-bordered file-input-neutral w-full mb-4" />
       <h1 class="text-left p-1 text-md">Item Price</h1>
       <label
         class="input input-bordered w-full mb-4 flex items-center gap-2 hover:bg-gray-300 hover:border-gray-300 hover:text-black transition duration-500 ease-in-out"

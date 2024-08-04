@@ -68,10 +68,11 @@
     </div>
 </div>
 
-<div>
-    <h1 class="text-3xl font-bold pl-10 pt-14">Add/Edit Menu Items</h1>
+<div class="flex items-center space-x-4 pl-10 pt-14">
+    <h1 class="text-3xl font-bold">Add/Edit Menu Items</h1>
+    <button class="btn btn-gray text-2xl font-bold rounded-full flex items-center justify-center" onclick={() => isEditModalOpen = true}>+</button>
 </div>
+<EditMenuModal bind:isModalOpen={isEditModalOpen}/>
+
 <div class="h-48 mx-auto rounded-2xl mr-10 ml-10 mt-5 p-10 bg-gray-300 flex text-center justify-center">
-    <button class="btn btn-primary text-2xl font-bold rounded-full" onclick={() => isEditModalOpen = true}>+</button>
-    <EditMenuModal bind:isModalOpen={isEditModalOpen}/>
 </div>

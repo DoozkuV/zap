@@ -17,18 +17,16 @@
   let showAlert = $state(false);
   let alertMessage = $state("");
 
-  let fileError = '';
-
   function handleFileChange(event: Event) {
     const target = event.target as HTMLInputElement;
     const files = target.files;
     if (files && files.length > 0) {
       file = files[0];
       if (file.size > 6 * 1024 * 1024) { // 6MB in bytes
-        fileError = 'File size should be less than 6MB.';
+        alertMessage = 'File size should be less than 6MB.';
         file = null;
       } else {
-        fileError = '';
+        alertMessage = '';
         console.log('Selected file:', file);
       }
     }
@@ -84,7 +82,6 @@
     showAlert = false;
     alertMessage = "";
     file = null;
-    fileError = "";
   }
 
 </script>

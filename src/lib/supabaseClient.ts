@@ -13,15 +13,15 @@ export async function uploadMenuItemPic(filePath: string, file: File) {
 
   const { data } = supabase
   .storage
-  .from('images')
+  .from('menu-item-pictures')
   .getPublicUrl(`${filePath}`)
 
-  const fileUrl = `${data.publicUrl}/${filePath}`;
+  // const fileUrl = `${data.publicUrl}`;
 
-  const {error} = await supabase.storage.from('menu-item-pictures').upload(fileUrl, file);
+  const {error} = await supabase.storage.from('menu-item-pictures').upload(filePath, file);
   if (error) {
     console.log(error);
   }
 
-  return {path: fileUrl }
+  return {path: `${data.publicUrl}/${filePath}`}
 }

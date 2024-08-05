@@ -41,11 +41,11 @@
         const { path } = await uploadMenuItemPic(filePath, file);
 
         const { error } = await supabase.from("menuitems").insert({
-          category: categoryInput,
-          name: itemNameInput,
-          price: itemPriceInput,
-          description: itemDescriptionInput,
-          image_path: path // Save the path to your database
+          category: categoryInput || undefined,
+          name: itemNameInput || undefined,
+          price: itemPriceInput !== null ? itemPriceInput : undefined,
+          description: itemDescriptionInput || undefined,
+          // image_path: path
         });
       } catch (error) {
         console.error('Error uploading file:', error);

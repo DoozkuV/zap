@@ -13,7 +13,6 @@
     const { data } = supabase.storage
       .from("menu-item-pictures")
       .getPublicUrl(filePath);
-    $inspect(data.publicUrl);
     return data.publicUrl;
   };
 </script>
@@ -51,7 +50,7 @@
         <div>
           <img
             src={getImageUrl(item.name)}
-            onerror={(event) => (event.target.src = stockImg)}
+            onerror={(event) => ((event.target as HTMLImageElement).src = stockImg)}
             alt={item.name}
             class="rounded-t-xl"
             width="212"

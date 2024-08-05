@@ -43,8 +43,8 @@
   >
 </div>
 
-<div class="carousel mx-10 space-x-4">
-  {#if menuItems.data !== null}
+{#if menuItems.data !== null}
+  <div class="carousel mx-10 space-x-4">
     {#each menuItems.data as item}
       <div class="carousel-item">
         <div>
@@ -61,7 +61,7 @@
         </div>
       </div>
     {/each}
-  {:else}
-    <h1>No Menu Items Found</h1>
-  {/if}
-</div>
+  </div>
+{:else}
+  <h1>No Menu Items Found</h1>
+{/if}

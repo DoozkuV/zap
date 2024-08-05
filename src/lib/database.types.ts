@@ -11,25 +11,28 @@ export type Database = {
     Tables: {
       menuitems: {
         Row: {
-          category: string | null
-          description: string | null
+          category: string 
+          description: string 
           id: number
-          name: string | null
-          price: number | null
+          name: string 
+          price: number 
+          image_path: string | null
         }
         Insert: {
-          category?: string | null
-          description?: string | null
+          category?: string 
+          description?: string 
           id?: never
-          name?: string | null
-          price?: number | null
+          name?: string 
+          price?: number 
+          image_path: string | null
         }
         Update: {
-          category?: string | null
-          description?: string | null
+          category?: string 
+          description?: string 
           id?: never
-          name?: string | null
-          price?: number | null
+          name?: string 
+          price?: number 
+          image_path: string | null
         }
         Relationships: []
       }

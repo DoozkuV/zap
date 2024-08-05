@@ -16,7 +16,6 @@ export type Database = {
           id: number
           name: string 
           price: number 
-          image_path: string | null
         }
         Insert: {
           category?: string 
@@ -24,7 +23,6 @@ export type Database = {
           id?: never
           name?: string 
           price?: number 
-          image_path: string | null
         }
         Update: {
           category?: string 
@@ -32,7 +30,6 @@ export type Database = {
           id?: never
           name?: string 
           price?: number 
-          image_path: string | null
         }
         Relationships: []
       }

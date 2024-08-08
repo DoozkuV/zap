@@ -18,7 +18,7 @@
 </script>
 
 <div class="flex justify-center">
-  <div class="relative w-11/12 h-[25vh]">
+  <div class="relative w-11/12 h-[30vh]">
     <img
       class="h-full w-full object-cover rounded-b-lg"
       src={banner}
@@ -26,7 +26,7 @@
     />
     <div class="absolute bottom-3 left-3 items-center justify-center">
       <img
-        class="relative max-h-14 max-w-14 z-10 object-cover rounded-full border-white border-4 drop-shadow-xl"
+        class="relative max-h-20 max-w-20 z-10 object-cover rounded-full border-white border-4 drop-shadow-xl"
         src={logo}
         alt="Restaurant Logo"
       />

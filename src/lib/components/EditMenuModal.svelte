@@ -1,15 +1,19 @@
 <script lang="ts">
   import { supabase, uploadMenuItemPic } from "$lib/supabaseClient";
-  import type { MenuItemProp } from '$lib/index';
+  import type { MenuItemProp } from "$lib/index";
   let categoryInput = $state("");
   let itemNameInput = $state("");
   let itemPriceInput: number | null = $state(null);
   let itemDescriptionInput = $state("");
   let file: File | null = null;
 
-
+  interface MyProps {
+    isModalOpen: boolean;
+    menuItemProp: MenuItemProp;
+  }
   // runes mode requires
-  let { isModalOpen = $bindable(false), menuItemProp: menuItem } = $props();
+  let { isModalOpen = $bindable(false), menuItemProp: menuItem }: MyProps =
+    $props();
 
   // let { supabase, session } = data; // destructure these from data object
   // $: ({ supabase, session } = data);
@@ -22,7 +26,6 @@
       // categoryInput = menuItem.category;
       // itemNameInput = menuItem.name;
       // itemPriceInput = menuItem.price;
-
     }
   }
   function handleFileChange(event: Event) {
@@ -30,12 +33,13 @@
     const files = target.files;
     if (files && files.length > 0) {
       file = files[0];
-      if (file.size > 6 * 1024 * 1024) { // 6MB in bytes
-        alertMessage = 'File size should be less than 6MB.';
+      if (file.size > 6 * 1024 * 1024) {
+        // 6MB in bytes
+        alertMessage = "File size should be less than 6MB.";
         file = null;
       } else {
-        alertMessage = '';
-        console.log('Selected file:', file);
+        alertMessage = "";
+        console.log("Selected file:", file);
       }
     }
   }
@@ -45,7 +49,7 @@
       console.log("Form is valid. Saving...");
       try {
         const timestamp = Date.now();
-        const filePath = itemNameInput.replace(/\s+/g, '_');
+        const filePath = itemNameInput.replace(/\s+/g, "_");
         const { path } = await uploadMenuItemPic(filePath, file);
 
         const { error } = await supabase.from("menuitems").insert({
@@ -56,7 +60,7 @@
           // image_path: path
         });
       } catch (error) {
-        console.error('Error uploading file:', error);
+        console.error("Error uploading file:", error);
         alertMessage = "Error uploading file. Please try again.";
         showAlert = true;
       }
@@ -91,7 +95,6 @@
     alertMessage = "";
     file = null;
   }
-
 </script>
 
 <dialog class="modal" class:modal-open={isModalOpen}>
@@ -130,10 +133,11 @@
       </label>
       <h1 class="text-left p-1 text-md">Item Picture</h1>
       <input
-            type="file"
-            accept="image/jpg, image/jpeg, image/png"
-            class="file-input file-input-bordered file-input-neutral w-full mb-4" 
-            onchange={handleFileChange} />
+        type="file"
+        accept="image/jpg, image/jpeg, image/png"
+        class="file-input file-input-bordered file-input-neutral w-full mb-4"
+        onchange={handleFileChange}
+      />
       <h1 class="text-left p-1 text-md">Item Price</h1>
       <label
         class="input input-bordered w-full mb-4 flex items-center gap-2 hover:bg-gray-300 hover:border-gray-300 hover:text-black transition duration-500 ease-in-out"
@@ -179,3 +183,4 @@
     </div>
   </div>
 </dialog>
+

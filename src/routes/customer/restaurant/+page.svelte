@@ -18,9 +18,9 @@
 </script>
 
 <div class="flex justify-center">
-  <div class="relative w-11/12">
+  <div class="relative w-11/12 h-[25vh]">
     <img
-      class="h-auto w-full rounded-b-lg"
+      class="h-full w-full object-cover rounded-b-lg"
       src={banner}
       alt="Restaurant Banner"
     />

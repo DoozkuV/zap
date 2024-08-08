@@ -1,6 +1,6 @@
 <script lang="ts">
   import { supabase, uploadMenuItemPic } from "$lib/supabaseClient";
-  
+  import type { MenuItemProp } from '$lib/index';
   let categoryInput = $state("");
   let itemNameInput = $state("");
   let itemPriceInput: number | null = $state(null);
@@ -9,7 +9,7 @@
 
 
   // runes mode requires
-  let { isModalOpen = $bindable(false) } = $props();
+  let { isModalOpen = $bindable(false), } = $props();
 
   // let { supabase, session } = data; // destructure these from data object
   // $: ({ supabase, session } = data);

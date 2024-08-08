@@ -1,8 +1,32 @@
 <script lang="ts">
 	import EditMenuModal from "$lib/components/EditMenuModal.svelte";
+    import type { MenuItemProp } from '$lib/index';
+    import { supabase } from "$lib/supabaseClient.js";
+    import { onMount } from "svelte";
+
 
     //import "https://fonts.googleapis.com/icon?family=Material+Icons";
     let isEditModalOpen = $state(false);
+    let menuItemList = $state<MenuItemProp[]>([]);
+
+    async function loadMenuItems() {
+        const {data: menuItems, error } = await supabase.from("menuitems").select("*");
+            
+        if (error) {
+            console.error('Error fetching menu items:', error);
+            return [];
+        }
+
+        return menuItems;
+    }
+
+    onMount(async () => {
+        menuItemList = await loadMenuItems();
+        
+        // debugging...
+        console.log(menuItemList);
+    });
+
 
 </script>
 
@@ -68,11 +92,31 @@
     </div>
 </div>
 
-<div class="flex items-center space-x-4 pl-10 pt-14">
-    <h1 class="text-3xl font-bold">Add/Edit Menu Items</h1>
-    <button class="btn btn-gray text-2xl font-bold rounded-full flex items-center justify-center" onclick={() => isEditModalOpen = true}>+</button>
-</div>
-<EditMenuModal bind:isModalOpen={isEditModalOpen}/>
+<!-- <h1 class="text-4xl font-bold pl-10 mt-14">Menu</h1>
 
-<div class="h-48 mx-auto rounded-2xl mr-10 ml-10 mt-5 p-10 bg-gray-300 flex text-center justify-center">
+<div class="flex items-center justify-center mt-5">
+    <button class="btn rounded-full text-xl">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 512 512" class="w-4 h-4 max-w-xs max-h-xs mr-1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g><path style="opacity:0.988" fill="#000000" d="M 248.5,9.5 C 267.692,7.33195 280.192,15.3319 286,33.5C 286.5,97.1658 286.667,160.832 286.5,224.5C 350.168,224.333 413.834,224.5 477.5,225C 497.392,231.942 504.892,245.775 500,266.5C 495.905,276.928 488.405,283.428 477.5,286C 413.834,286.5 350.168,286.667 286.5,286.5C 286.667,350.168 286.5,413.834 286,477.5C 279.058,497.392 265.225,504.892 244.5,500C 234.072,495.905 227.572,488.405 225,477.5C 224.5,413.834 224.333,350.168 224.5,286.5C 160.832,286.667 97.1658,286.5 33.5,286C 13.6026,279.046 6.10256,265.213 11,244.5C 15.1028,234.063 22.6028,227.563 33.5,225C 97.1658,224.5 160.832,224.333 224.5,224.5C 224.333,160.832 224.5,97.1658 225,33.5C 228.349,20.9853 236.182,12.9853 248.5,9.5 Z"/></g>
+        </svg>Menu Category
+    </button>
+</div> -->
+<div class="flex items-center space-x-4 pl-10 mt-14">
+    <h1 class="text-3xl font-bold">Menu Items</h1>
+    <button class="btn btn-circle btn-gray" onclick={() => isEditModalOpen = true}>
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 512 512" class="w-5 h-5 max-w-xs max-h-xs" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g><path style="opacity:0.988" fill="#000000" d="M 248.5,9.5 C 267.692,7.33195 280.192,15.3319 286,33.5C 286.5,97.1658 286.667,160.832 286.5,224.5C 350.168,224.333 413.834,224.5 477.5,225C 497.392,231.942 504.892,245.775 500,266.5C 495.905,276.928 488.405,283.428 477.5,286C 413.834,286.5 350.168,286.667 286.5,286.5C 286.667,350.168 286.5,413.834 286,477.5C 279.058,497.392 265.225,504.892 244.5,500C 234.072,495.905 227.572,488.405 225,477.5C 224.5,413.834 224.333,350.168 224.5,286.5C 160.832,286.667 97.1658,286.5 33.5,286C 13.6026,279.046 6.10256,265.213 11,244.5C 15.1028,234.063 22.6028,227.563 33.5,225C 97.1658,224.5 160.832,224.333 224.5,224.5C 224.333,160.832 224.5,97.1658 225,33.5C 228.349,20.9853 236.182,12.9853 248.5,9.5 Z"/></g>
+        </svg>          
+    </button>
+</div>
+<EditMenuModal bind:isModalOpen={isEditModalOpen} />
+
+<div class="max-w-6xl mx-auto">
+    <main class="sm:p-16 py-16 px-8 flex flex-col gap-10">
+        <section class="grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
+            {#each menuItemList as menuItem}
+                
+            {/each}
+        </section>
+    </main>
 </div>

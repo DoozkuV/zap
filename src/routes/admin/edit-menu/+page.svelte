@@ -2,6 +2,7 @@
 	import EditMenuModal from "$lib/components/EditMenuModal.svelte";
     import type { MenuItemProp } from '$lib/index';
     import { supabase } from "$lib/supabaseClient.js";
+    import stockImg from "$lib/assets/stock-image-not-found.jpg";
     import { onMount } from "svelte";
 
 
@@ -27,6 +28,13 @@
         console.log(menuItemList);
     });
 
+    const getImageUrl = (name: string) => {
+    const filePath = name.replace(/\s+/g, "_");
+    const { data } = supabase.storage
+      .from("menu-item-pictures")
+      .getPublicUrl(filePath);
+    return data.publicUrl;
+  };
 
 </script>
 
@@ -109,14 +117,26 @@
         </svg>          
     </button>
 </div>
-<EditMenuModal bind:isModalOpen={isEditModalOpen} />
+<EditMenuModal bind:isModalOpen={isEditModalOpen} menuItemProp={null} />
 
-<div class="max-w-6xl mx-auto">
-    <main class="sm:p-16 py-16 px-8 flex flex-col gap-10">
+<button>
+    <div class="sm:p-16 py-16 px-8 flex flex-col gap-10">
         <section class="grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
-            {#each menuItemList as menuItem}
-                
+            {#each menuItemList as item}
+                <div>
+                    <img
+                    src={getImageUrl(item.name)}
+                    onerror={(event) => ((event.target as HTMLImageElement).src = stockImg)}
+                    alt={item.name}
+                    class="rounded-t-xl"
+                    width="212"
+                    height="220"
+                    />
+                    <h1>{item.name}</h1>
+                    <h1>${item.price}</h1>
+                </div>
+                <EditMenuModal bind:isModalOpen={isEditModalOpen} menuItemProp={item} />
             {/each}
         </section>
-    </main>
-</div>
+    </div>
+</button>

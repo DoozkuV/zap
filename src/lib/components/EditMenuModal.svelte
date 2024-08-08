@@ -9,7 +9,7 @@
 
 
   // runes mode requires
-  let { isModalOpen = $bindable(false), } = $props();
+  let { isModalOpen = $bindable(false), menuItemProp: menuItem } = $props();
 
   // let { supabase, session } = data; // destructure these from data object
   // $: ({ supabase, session } = data);
@@ -17,6 +17,14 @@
   let showAlert = $state(false);
   let alertMessage = $state("");
 
+  function editExisting() {
+    if (menuItem) {
+      // categoryInput = menuItem.category;
+      // itemNameInput = menuItem.name;
+      // itemPriceInput = menuItem.price;
+
+    }
+  }
   function handleFileChange(event: Event) {
     const target = event.target as HTMLInputElement;
     const files = target.files;

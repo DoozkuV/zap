@@ -117,13 +117,12 @@
         </svg>          
     </button>
 </div>
-<EditMenuModal bind:isModalOpen={isEditModalOpen} menuItemProp={null} />
+<EditMenuModal bind:isModalOpen={isEditModalOpen} menuItem={null} />
 
-<button>
     <div class="sm:p-16 py-16 px-8 flex flex-col gap-10">
         <section class="grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
             {#each menuItemList as item}
-                <div>
+                <button onclick={() => isEditModalOpen = true}>
                     <img
                     src={getImageUrl(item.name)}
                     onerror={(event) => ((event.target as HTMLImageElement).src = stockImg)}
@@ -134,9 +133,8 @@
                     />
                     <h1>{item.name}</h1>
                     <h1>${item.price}</h1>
-                </div>
-                <EditMenuModal bind:isModalOpen={isEditModalOpen} menuItemProp={item} />
+                </button>
+                <EditMenuModal bind:isModalOpen={isEditModalOpen} menuItem={item} />
             {/each}
         </section>
     </div>
-</button>

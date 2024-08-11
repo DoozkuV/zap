@@ -1,6 +1,7 @@
 <script lang="ts">
   import { supabase, uploadMenuItemPic } from "$lib/supabaseClient";
   import type { MenuItemProp } from "$lib/index";
+  import { onMount } from "svelte";
   let categoryInput = $state("");
   let itemNameInput = $state("");
   let itemPriceInput: number | null = $state(null);
@@ -9,10 +10,10 @@
 
   interface MyProps {
     isModalOpen: boolean;
-    menuItemProp: MenuItemProp;
+    menuItem: MenuItemProp | null;
   }
   // runes mode requires
-  let { isModalOpen = $bindable(false), menuItemProp: menuItem }: MyProps =
+  let { isModalOpen = $bindable(false), menuItem }: MyProps =
     $props();
 
   // let { supabase, session } = data; // destructure these from data object
@@ -21,13 +22,14 @@
   let showAlert = $state(false);
   let alertMessage = $state("");
 
-  function editExisting() {
-    if (menuItem) {
-      // categoryInput = menuItem.category;
-      // itemNameInput = menuItem.name;
-      // itemPriceInput = menuItem.price;
-    }
-  }
+
+  $effect(() => {
+      categoryInput = menuItem?.category || "";
+      itemNameInput = menuItem?.name || "";
+      itemPriceInput = menuItem?.price || 0;
+      itemDescriptionInput = menuItem?.description || "";
+  });
+
   function handleFileChange(event: Event) {
     const target = event.target as HTMLInputElement;
     const files = target.files;
